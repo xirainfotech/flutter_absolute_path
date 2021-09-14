@@ -14,12 +14,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<File> _files;
+  List<File>? _files;
 
   @override
   void initState() {
     super.initState();
-    init();
+    // init();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -28,10 +28,12 @@ class _MyAppState extends State<MyApp> {
     /// for iOS PHAsset identifier is supported as well
 
     List<Asset> assets = await selectImagesFromGallery();
+    debugPrint('_MyAppState.init: $assets');
     List<File> files = [];
     for (Asset asset in assets) {
       final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+          await (FlutterAbsolutePath.getAbsolutePath(asset.identifier!)
+              as FutureOr<String>);
       files.add(File(filePath));
     }
 
@@ -64,7 +66,15 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_files\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () {
+                init();
+              }, child: Text('Load')),
+              Text('Running on: $_files\n'),
+            ],
+          ),
         ),
       ),
     );
