@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 void main() => runApp(MyApp());
 
